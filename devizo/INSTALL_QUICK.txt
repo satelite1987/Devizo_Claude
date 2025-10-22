@@ -1,0 +1,84 @@
+===============================================
+DEVIZO - GHID RAPID DE INSTALARE
+===============================================
+
+Pentru instructiuni detaliate, consultati README.md
+
+===============================================
+PASI RAPIZI:
+===============================================
+
+1. UPLOAD FISIERE
+   - Uploadati toate fisierele pe server in folder /public_html/devizo/
+
+2. CREARE BAZA DE DATE
+   - cPanel > MySQL Databases > Create Database
+   - Nume: devizo_db
+   - Creati utilizator MySQL
+   - Adaugati utilizatorul la baza de date cu ALL PRIVILEGES
+
+3. IMPORT SQL
+   - phpMyAdmin > Selectati devizo_db > Import
+   - Alegeti fisierul database.sql > Go
+
+4. CONFIGURARE
+   - Editati fisierul: config/database.php
+   - Completati:
+     * DB_HOST (de obicei 'localhost')
+     * DB_NAME (devizo_db)
+     * DB_USER (utilizatorul MySQL)
+     * DB_PASS (parola MySQL)
+     * SITE_URL (https://domeniul.ro/devizo)
+
+5. SETARE PERMISIUNI
+   - assets/uploads/logos: 775
+   - Creati folder logs/ cu permisiuni 775
+
+6. TESTARE
+   - Accesati: https://domeniul.ro/devizo
+   - Login cu: admin@devizo.ro / admin123
+   - SCHIMBATI PAROLA IMEDIAT!
+
+===============================================
+CONTURI DEMO:
+===============================================
+
+Super Admin:
+Email: admin@devizo.ro
+Parola: admin123
+
+Master Firma:
+Email: doru@zaninstal.ro
+Parola: demo123
+
+Utilizator:
+Email: user@zaninstal.ro
+Parola: user123
+
+===============================================
+PROBLEME COMUNE:
+===============================================
+
+1. "Eroare conexiune baza de date"
+   → Verificati datele din config/database.php
+
+2. "Table doesn't exist"
+   → Importati database.sql in phpMyAdmin
+
+3. "Cannot upload logo"
+   → Setati permisiuni 775 pentru assets/uploads/
+
+4. Pagina alba
+   → Verificati versiunea PHP (minim 7.4)
+   → Activati display_errors temporar
+
+===============================================
+SUPORT:
+===============================================
+
+Pentru probleme, consultati:
+1. README.md - sectiunea Troubleshooting
+2. logs/app.log - pentru erori aplicatie
+3. error_log serverului
+
+===============================================
