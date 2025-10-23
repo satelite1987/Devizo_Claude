@@ -21,10 +21,6 @@
 -- - Fiecare firma are propriile: devize, articole, parteneri, furnizori
 -- ============================================
 
--- Stergem baza de date daca exista si o recreem
-DROP DATABASE IF EXISTS devizo_db;
-CREATE DATABASE devizo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE devizo_db;
 
 -- ============================================
 -- TABELE PRINCIPALE
