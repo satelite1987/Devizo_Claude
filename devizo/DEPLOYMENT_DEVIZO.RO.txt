@@ -1,0 +1,358 @@
+===============================================
+DEVIZO - GHID DEPLOYMENT PENTRU WWW.DEVIZO.RO
+===============================================
+
+ACEST FISIER CONTINE INSTRUCTIUNI SPECIFICE
+PENTRU DEPLOYMENT PE DOMENIUL: www.devizo.ro
+
+===============================================
+CONFIGURARE DEJA FACUTA
+===============================================
+
+✅ Domeniu: www.devizo.ro
+✅ Baza de date: devizo_db
+✅ User MySQL: devizo_user
+✅ Parola MySQL: Satelite1987!
+
+Fisierul config/database.php este DEJA CONFIGURAT
+cu aceste date! NU TREBUIE sa editati nimic!
+
+===============================================
+PASI DEPLOYMENT (15 minute)
+===============================================
+
+PASUL 1: UPLOAD FISIERE (5 minute)
+-----------------------------------
+
+Varianta A - File Manager (Recomandat):
+1. Login Hostico cPanel
+2. File Manager
+3. Navigati la: /public_html/
+4. Upload DEVIZO_RELEASE_v1.0.0.zip
+5. Click dreapta > Extract
+6. Stergeti ZIP-ul dupa extragere
+7. Veti avea: /public_html/devizo/
+
+Varianta B - FTP (FileZilla):
+1. Host: ftp.devizo.ro
+2. User: utilizatorul cPanel
+3. Parola: parola cPanel
+4. Port: 21
+5. Uploadati continutul din devizo/ in /public_html/devizo/
+
+
+PASUL 2: VERIFICARE BAZA DE DATE (2 minute)
+--------------------------------------------
+
+cPanel > MySQL Databases
+
+Verificati ca exista:
+✅ Database: devizo_db
+✅ User: devizo_user (cu parola Satelite1987!)
+✅ User adaugat la database cu ALL PRIVILEGES
+
+Daca NU exista, creati-le conform instructiunilor.
+
+
+PASUL 3: IMPORT SQL (5 minute)
+-------------------------------
+
+IMPORTANT: Baza de date TREBUIE sa fie GOALA!
+
+cPanel > phpMyAdmin
+
+1. Click pe "devizo_db" in lista din STANGA
+   (Trebuie sa fie evidentiata/selectata)
+
+2. VERIFICARE: Daca baza are deja tabele:
+   - Tab "Structure" - vedeti tabelele existente?
+   - Daca DA: Tab "Operations" > "Drop Database"
+     (sau stergeti tabelele manual)
+   - Apoi recreati baza in cPanel MySQL Databases
+
+3. Tab "Import"
+
+4. Choose File > Selectati: devizo/database.sql
+
+5. Format: SQL (default)
+
+6. Scroll jos > Click "Go"
+
+7. Asteptati 10-30 secunde
+
+8. Mesaj verde: "Import has been successfully finished"
+
+9. Verificare: Tab "Structure"
+   Trebuie sa vedeti 18 TABELE:
+   ✅ roluri
+   ✅ firme
+   ✅ utilizatori
+   ✅ devize
+   ✅ deviz_randuri
+   ✅ deviz_contoare
+   ✅ articole
+   ✅ parteneri
+   ✅ unitati_masura
+   ✅ cereri_oferta
+   ✅ cereri_oferta_randuri
+   ✅ oferte_furnizori
+   ✅ oferte_furnizori_randuri
+   ✅ log_activitate
+   + 2 VIEW-uri (v_devize_complete, v_statistici_firme)
+
+
+PASUL 4: SETARE PERMISIUNI (2 minute)
+--------------------------------------
+
+File Manager:
+
+1. Navigati la: /public_html/devizo/assets/uploads/logos/
+   Click dreapta > Change Permissions
+   Setati: 775 (rwxrwxr-x)
+   ✅ Bifati "Recurse into subdirectories"
+   Click "Change Permissions"
+
+2. Navigati la: /public_html/devizo/logs/
+   Click dreapta > Change Permissions
+   Setati: 775 (rwxrwxr-x)
+   Click "Change Permissions"
+
+
+PASUL 5: VERIFICARE PHP VERSION (1 minut)
+------------------------------------------
+
+cPanel > MultiPHP Manager
+
+Verificati ca www.devizo.ro foloseste:
+✅ PHP 8.1 sau PHP 8.2 (recomandat)
+✅ Minim PHP 7.4
+
+Daca nu:
+1. Selectati "devizo.ro" din lista
+2. Alegeti "PHP 8.2" din dropdown
+3. Apply
+
+
+PASUL 6: TESTARE APLICATIE (IMPORTANT!)
+----------------------------------------
+
+Browser: https://www.devizo.ro
+
+Ar trebui sa vedeti pagina de LOGIN.
+
+LOGIN CU CONTURILE DEMO:
+
+1. Super Admin:
+   Email: admin@devizo.ro
+   Parola: admin123
+
+   → Dupa login: Vedeti dashboard cu statistici
+   → SUCCES!
+
+2. Master Firma (ENERGY ZAN INSTAL SRL):
+   Email: doru@zaninstal.ro
+   Parola: demo123
+
+   → Dashboard firma ENERGY ZAN INSTAL SRL
+   → SUCCES!
+
+3. Utilizator Normal:
+   Email: user@zaninstal.ro
+   Parola: user123
+
+   → Dashboard utilizator
+   → SUCCES!
+
+
+PASUL 7: SCHIMBARE PAROLE DEMO (OBLIGATORIU!)
+----------------------------------------------
+
+FOARTE IMPORTANT - SECURITATE!
+
+1. Login ca admin@devizo.ro
+
+2. Contul Meu > Schimba Parola
+
+3. Parola veche: admin123
+   Parola noua: [Parola puternica!]
+   Confirma parola: [Aceeasi parola]
+
+4. Salvati
+
+5. Repetati pentru celelalte 2 conturi demo
+   (sau stergeti-le din Administrare > Utilizatori)
+
+
+PASUL 8: CONFIGURARE PRODUCTIE (IMPORTANT!)
+--------------------------------------------
+
+Dupa ce totul merge OK:
+
+File Manager > devizo/config/database.php
+Editati:
+
+Gasiti linia:
+define('DEBUG_MODE', 1);
+
+Schimbati in:
+define('DEBUG_MODE', 0);
+
+Salvati fisierul.
+
+Aceasta opreste afisarea erorilor pentru securitate!
+
+
+===============================================
+DACA CEVA NU MERGE
+===============================================
+
+PROBLEMA 1: "Eroare conexiune baza de date"
+-------------------------------------------
+Cauze:
+- Baza de date nu exista (devizo_db)
+- User-ul nu exista (devizo_user)
+- Parola gresita (Satelite1987!)
+- User-ul nu are permisiuni pe baza de date
+
+Solutie:
+1. Verificati in cPanel > MySQL Databases
+2. Verificati ca user-ul e adaugat la database
+3. Verificati cu ALL PRIVILEGES
+
+
+PROBLEMA 2: "Table 'devizo_db.utilizatori' doesn't exist"
+----------------------------------------------------------
+Cauza:
+- database.sql nu a fost importat corect
+
+Solutie:
+1. phpMyAdmin > devizo_db > Tab "Structure"
+2. Daca nu vedeti tabele, reimportati database.sql
+3. Asigurati-va ca baza e selectata (stanga) inainte de import
+
+
+PROBLEMA 3: "Cannot upload logo" / "Permission denied"
+-------------------------------------------------------
+Cauza:
+- Folder-ul assets/uploads nu are permisiuni 775
+
+Solutie:
+1. File Manager > devizo/assets/uploads/
+2. Change Permissions > 775
+3. Bifati "Recurse into subdirectories"
+
+
+PROBLEMA 4: Pagina alba / Eroare 500
+-------------------------------------
+Cauze:
+- Versiune PHP prea veche
+- Extensii PHP lipsa
+- Eroare de sintaxa
+
+Solutie:
+1. Verificati PHP Version (MultiPHP Manager)
+2. Trebuie minim PHP 7.4, recomandat 8.1+
+3. Activati DEBUG_MODE = 1 temporar pentru a vedea eroarea
+4. Verificati logs/app.log
+
+
+PROBLEMA 5: CSS nu se incarca / Link-uri rupte
+-----------------------------------------------
+Cauza:
+- SITE_URL incorect in config (DAR E DEJA CONFIGURAT CORECT!)
+
+Verificare:
+config/database.php trebuie sa contina:
+define('SITE_URL', 'https://www.devizo.ro');
+
+
+PROBLEMA 6: "Access Denied" la phpMyAdmin
+------------------------------------------
+Cauza:
+- Credentiale MySQL gresite
+
+Solutie:
+1. Incercati din nou cu:
+   User: devizo_user
+   Password: Satelite1987!
+
+2. Daca nu merge, resetati parola in cPanel > MySQL Databases
+
+
+===============================================
+DUPĂ DEPLOYMENT REUSIT
+===============================================
+
+✅ CHECKLIST SECURITATE:
+
+- [ ] Toate parolele demo schimbate
+- [ ] DEBUG_MODE = 0 in config/database.php
+- [ ] Permisiuni 775 pentru uploads si logs
+- [ ] SSL/HTTPS activ (https://www.devizo.ro)
+- [ ] Backup baza de date configurat
+- [ ] Monitorizare logs/app.log
+
+✅ PASII URMATORI:
+
+1. Testati toate functiile:
+   - Login/Logout
+   - Dashboard statistici
+   - Navigare in meniuri
+
+2. Creati PRIMA FIRMA REALA:
+   - Login ca Super Admin
+   - Administrare > Firme > Adauga Firma
+   - Introduceti date firma reala
+   - Setati data expirare abonament
+   - Creati utilizator Master pentru firma
+
+3. Testati crearea unui deviz simplu
+   (cand modulul va fi complet)
+
+4. Configurati backup-uri automate:
+   - cPanel > Backup Wizard
+   - Backup zilnic baza de date
+   - Backup saptamanal fisiere
+
+
+===============================================
+CONTACT SUPORT
+===============================================
+
+Daca aveti probleme:
+
+1. Verificati acest fisier (DEPLOYMENT_DEVIZO.RO.txt)
+2. Verificati README.md pentru detalii
+3. Verificati logs/app.log pentru erori
+4. Screenshot-uri cu erorile exacte
+
+
+===============================================
+INFORMATII APLICATIE
+===============================================
+
+Aplicatie: DEVIZO v1.0.0
+Domeniu: https://www.devizo.ro
+Database: devizo_db
+User: devizo_user
+
+Conturi Demo:
+- admin@devizo.ro / admin123 (Super Admin)
+- doru@zaninstal.ro / demo123 (Master Firma)
+- user@zaninstal.ro / user123 (Utilizator)
+
+⚠️ SCHIMBATI PAROLELE IMEDIAT DUPA TESTARE!
+
+
+===============================================
+SUCCES CU APLICATIA DEVIZO!
+===============================================
+
+Aplicatia este configurata si gata de utilizare.
+Urmati pasii de mai sus si in 15 minute va fi LIVE!
+
+Pentru dezvoltari ulterioare (module complete):
+- Consultati DEPLOYMENT_SUMMARY.md
+- Consultati TECHNICAL_NOTES.md
+
+===============================================

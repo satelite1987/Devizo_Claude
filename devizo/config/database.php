@@ -29,15 +29,15 @@ if (DEBUG_MODE) {
 }
 
 // Configurare conexiune baza de date
-// EDITATI ACESTE VALORI CU DATELE DVS.:
-define('DB_HOST', 'localhost');        // Adresa server MySQL (de obicei 'localhost')
+// CONFIGURARE PENTRU WWW.DEVIZO.RO
+define('DB_HOST', 'localhost');        // Adresa server MySQL
 define('DB_NAME', 'devizo_db');        // Numele bazei de date
-define('DB_USER', 'root');             // Utilizator MySQL
-define('DB_PASS', '');                 // Parola MySQL (SCHIMBATI ACEASTA!)
+define('DB_USER', 'devizo_user');      // Utilizator MySQL
+define('DB_PASS', 'Satelite1987!');    // Parola MySQL
 define('DB_CHARSET', 'utf8mb4');       // Charset (NU modificati)
 
 // Configurari aplicatie
-define('SITE_URL', 'http://localhost/devizo');  // URL-ul complet al aplicatiei (ex: https://devizo.ro)
+define('SITE_URL', 'https://www.devizo.ro');  // URL-ul complet al aplicatiei
 define('SITE_NAME', 'DEVIZO');                  // Numele aplicatiei
 define('UPLOAD_PATH', __DIR__ . '/../assets/uploads/');  // Calea catre director upload-uri
 define('UPLOAD_MAX_SIZE', 5 * 1024 * 1024);     // Marime maxima fisier upload (5 MB)
