@@ -3,11 +3,17 @@
  * DEVIZO - Pagina Principala (Dashboard)
  */
 
+// Include config si functii INAINTE de orice output
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/functions.php';
+
+// Verificare autentificare INAINTE de a trimite HTML
+requireLogin();
+
+// Acum putem include header-ul si trimite HTML
 $pageTitle = 'Dashboard';
 require_once __DIR__ . '/includes/header.php';
-
-// Verificare autentificare
-requireLogin();
 
 // Obtinem datele utilizatorului si firmei
 $currentUser = getCurrentUser();
