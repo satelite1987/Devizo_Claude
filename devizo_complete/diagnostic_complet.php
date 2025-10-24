@@ -259,9 +259,11 @@ ini_set('display_errors', '1');
 
             // Verificare tabele
             $tables = [
-                'utilizatori', 'roluri', 'firme', 'devize', 'devize_randuri',
-                'articole', 'parteneri', 'unitati_masura', 'cereri_oferta',
-                'cereri_oferta_randuri', 'log_activitate'
+                'roluri', 'firme', 'utilizatori', 'parteneri', 'unitati_masura',
+                'articole', 'devize', 'deviz_randuri', 'deviz_contoare',
+                'cereri_oferta', 'cereri_oferta_randuri',
+                'oferte_furnizori', 'oferte_furnizori_randuri',
+                'log_activitate'
             ];
 
             foreach ($tables as $table) {
