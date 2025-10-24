@@ -69,7 +69,7 @@ $stmt = $db->prepare("
     LEFT JOIN parteneri p ON d.partener_id = p.id
     LEFT JOIN utilizatori u ON d.utilizator_id = u.id
     WHERE $whereClause
-    ORDER BY d.created_at DESC
+    ORDER BY d.creat_la DESC
     LIMIT :limit OFFSET :offset
 ");
 
@@ -171,7 +171,7 @@ require_once __DIR__ . '/includes/header.php';
                             <td class="text-right"><?php echo formatPrice($deviz['total_materiale']); ?> RON</td>
                             <td class="text-right"><?php echo formatPrice($deviz['total_manopera']); ?> RON</td>
                             <td class="text-right"><strong><?php echo formatPrice($deviz['total']); ?> RON</strong></td>
-                            <td><?php echo formatDateRO($deviz['created_at']); ?></td>
+                            <td><?php echo formatDateRO($deviz['creat_la']); ?></td>
                             <td class="actions">
                                 <a href="<?php echo SITE_URL; ?>/deviz.php?id=<?php echo $deviz['id']; ?>" class="btn-icon" title="Vizualizeaza">
                                     <i class="fas fa-eye"></i>
