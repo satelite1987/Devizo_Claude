@@ -1,0 +1,38 @@
+        <ul class="nav-menu" id="mainMenu">
+            <li class="nav-item">
+                <a href="<?php echo SITE_URL; ?>/index.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-home"></i> Acasa
+                </a>
+            </li>
+
+            <?php if (!isSuperAdmin()): ?>
+                <li class="nav-item">
+                    <a href="<?php echo SITE_URL; ?>/devize.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'devize.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-file-invoice"></i> Devize
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-database"></i> Nomenclatoare <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="<?php echo SITE_URL; ?>/articole.php"><i class="fas fa-boxes"></i> Articole</a>
+                        <a href="<?php echo SITE_URL; ?>/parteneri.php"><i class="fas fa-address-book"></i> Parteneri</a>
+                    </div>
+                </li>
+            <?php endif; ?>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user-circle"></i> Contul Meu <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="<?php echo SITE_URL; ?>/profil.php"><i class="fas fa-user"></i> Profilul Meu</a>
+                    <?php if (!isSuperAdmin()): ?>
+                        <a href="<?php echo SITE_URL; ?>/setari-firma.php"><i class="fas fa-building"></i> Setari Firma</a>
+                    <?php endif; ?>
+                    <a href="<?php echo SITE_URL; ?>/schimba-parola.php"><i class="fas fa-key"></i> Schimba Parola</a>
+                </div>
+            </li>
+        </ul>
