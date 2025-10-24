@@ -72,7 +72,7 @@ $stmt = $db->prepare("
         (SELECT COUNT(*) FROM devize WHERE firma_id = f.id) as nr_devize
     FROM firme f
     $whereClause
-    ORDER BY f.created_at DESC
+    ORDER BY f.creat_la DESC
     LIMIT :limit OFFSET :offset
 ");
 

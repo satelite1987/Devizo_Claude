@@ -80,7 +80,7 @@ try {
             $stmt = $db->prepare("
                 INSERT INTO firme (
                     denumire, cui, email, max_utilizatori,
-                    abonament_activ, data_expirare_abonament, created_at
+                    abonament_activ, data_expirare_abonament, creat_la
                 ) VALUES (?, ?, ?, ?, ?, ?, NOW())
             ");
 
@@ -141,7 +141,7 @@ try {
                     max_utilizatori = ?,
                     abonament_activ = ?,
                     data_expirare_abonament = ?,
-                    updated_at = NOW()
+                    actualizat_la = NOW()
                 WHERE id = ?
             ");
 
