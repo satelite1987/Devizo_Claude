@@ -122,6 +122,33 @@ RewriteBase /
 
 **NU** modificati aceasta linie! Trebuie sa fie exact `/`
 
+### 3. **IMPORTANT:** Resetare Parole (OBLIGATORIU!)
+
+**ATENTIE:** Baza de date contine parole temporare care **NU functioneaza**!
+Trebuie sa rulati scriptul de resetare parole:
+
+**Acceseaza in browser:**
+
+```
+https://www.domeniul-dvs.ro/fix_parole.php
+```
+
+Vei vedea o pagina cu fundal violet care va:
+1. Conecta la baza de date
+2. Genera hash-uri BCrypt pentru parolele demo
+3. Actualiza parolele in baza de date
+4. Verifica ca totul functioneaza
+
+**Dupa ce scriptul afiseaza "SUCCES COMPLET":**
+
+✅ Click pe butonul "INTRA IN APLICATIE"
+❌ **STERGE IMEDIAT** fisierul `fix_parole.php` din server! (Contine credentiale sensibile!)
+
+**Parolele setate vor fi:**
+- `admin@devizo.ro` → parola `admin123`
+- `doru@zaninstal.ro` → parola `demo123`
+- `user@zaninstal.ro` → parola `user123`
+
 ---
 
 ## PASUL 4: SETARE PERMISIUNI
