@@ -358,6 +358,21 @@ class Database {
         return !empty($result) ? $result[0] : null;
     }
 
+    /**
+     * Execute query builder and fetch single column value
+     */
+    public function fetchColumn($column = 0) {
+        $sql = $this->buildSelectQuery();
+        $params = $this->getQueryParams();
+
+        $stmt = $this->execute($sql, $params);
+        $result = $stmt->fetchColumn($column);
+
+        $this->resetQueryBuilder();
+
+        return $result;
+    }
+
     private function buildSelectQuery() {
         $sql = "SELECT {$this->qb['select']} FROM `{$this->qb['from']}`";
 
