@@ -33,17 +33,19 @@
 
 ### Pas 2: Upload Fișiere
 
-1. Extrage arhiva `devizo_v2_checkpoint1.zip`
-2. Urcă tot conținutul folderului `devizo_v2/` pe server
-3. Asigură-te că structura e:
+1. **Download arhiva:** `devizo_checkpoint1_deploy.zip`
+2. Extrage arhiva local pe PC
+3. Urcă **TOATE** fișierele **DIRECT** în folderul `public_html`
+4. Structura finală pe server:
    ```
-   /devizo_v2/
+   /public_html/
    ├── config.php
    ├── index.php
    ├── login.php
    ├── logout.php
    ├── setup.php
    ├── .htaccess
+   ├── README.md
    ├── core/
    ├── database/
    ├── dashboards/
@@ -54,15 +56,17 @@
 
 Rulează în SSH sau File Manager:
 ```bash
-chmod 755 devizo_v2/
-chmod 644 devizo_v2/*.php
-chmod 644 devizo_v2/config.php
-chmod 644 devizo_v2/.htaccess
+chmod 755 public_html/
+chmod 644 public_html/*.php
+chmod 644 public_html/config.php
+chmod 644 public_html/.htaccess
 ```
+
+**Sau simplu:** Toate fișierele `.php` și `.htaccess` → permisiuni **644**
 
 ### Pas 4: Generare Hash-uri Parole
 
-1. Accesează în browser: `https://www.devizo.ro/devizo_v2/setup.php`
+1. Accesează în browser: `https://www.devizo.ro/setup.php`
 2. Pagina va:
    - Testa conexiunea la baza de date
    - Verifica toate tabelele (33 tabele)
@@ -71,12 +75,13 @@ chmod 644 devizo_v2/.htaccess
    - Verifica că parolele funcționează
 3. Când vezi **"✓ Setup complet!"**, **ȘTERGE** `setup.php`:
    ```bash
-   rm devizo_v2/setup.php
+   rm public_html/setup.php
    ```
+   **Sau din File Manager:** Click dreapta pe `setup.php` → Delete
 
 ### Pas 5: Testare Login
 
-Accesează: `https://www.devizo.ro/devizo_v2/login.php`
+Accesează: `https://www.devizo.ro/login.php`
 
 **Utilizatori Demo:**
 
@@ -108,17 +113,18 @@ Accesează: `https://www.devizo.ro/devizo_v2/login.php`
 - Vede propriile statistici
 - Dashboard simplificat
 
-## 📁 Structură Fișiere
+## 📁 Structură Fișiere (în public_html)
 
 ```
-devizo_v2/
+public_html/
 │
 ├── config.php              # Configurare PRE-COMPLETATĂ
 ├── index.php               # Entry point - routing către dashboards
 ├── login.php               # Pagină autentificare
 ├── logout.php              # Handler logout
-├── setup.php              # Generator hash-uri (ȘTERGE după rulare!)
-├── .htaccess              # Securitate și clean URLs
+├── setup.php               # Generator hash-uri (ȘTERGE după rulare!)
+├── .htaccess               # Securitate și clean URLs
+├── README.md               # Instrucțiuni (poți șterge după instalare)
 │
 ├── core/                   # Framework core
 │   ├── Auth.php           # Autentificare + RBAC (500+ linii)
@@ -128,7 +134,7 @@ devizo_v2/
 │   ├── Router.php         # Rutare URL
 │   └── Session.php        # Management sesiuni securizate
 │
-├── database/              # SQL scripts
+├── database/              # SQL scripts (șterge după import!)
 │   ├── schema.sql        # Schema completă (550+ linii, 33 tabele)
 │   └── demo-data.sql     # Date demo cu 3 utilizatori
 │
@@ -141,6 +147,11 @@ devizo_v2/
     ├── header.php        # Header comun cu navigare
     └── footer.php        # Footer comun
 ```
+
+**⚠️ După instalare, șterge:**
+- `setup.php` (OBLIGATORIU - securitate!)
+- `README.md` (opțional)
+- folderul `database/` (opțional)
 
 ## 🔐 Credențiale Database (PRE-CONFIGURATE)
 
