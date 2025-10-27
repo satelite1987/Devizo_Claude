@@ -28,7 +28,7 @@ class Auth {
 
         try {
             // Get user from database
-            $user = db()->select('u.*, r.nume as rol_nume, r.nivel as rol_nivel, r.slug as rol_slug')
+            $user = db()->select('u.*, r.nume as rol_nume, r.nivel as rol_nivel')
                 ->from('utilizatori u')
                 ->join('roluri r', 'u.rol_id = r.id')
                 ->where('u.email = ?', [$email])
@@ -38,6 +38,14 @@ class Auth {
                 self::recordLoginAttempt($email, false);
                 return false;
             }
+
+            // Generate rol_slug from rol_nivel
+            $rolSlugs = [
+                1 => 'super-admin',
+                2 => 'master-firma',
+                3 => 'utilizator'
+            ];
+            $user['rol_slug'] = $rolSlugs[$user['rol_nivel']] ?? 'utilizator';
 
             // Check if user is active
             if (!$user['activ']) {
