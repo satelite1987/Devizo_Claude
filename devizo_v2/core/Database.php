@@ -124,16 +124,32 @@ class Database {
 
     /**
      * Fetch single row
+     * Can be used with direct SQL or query builder
      */
-    public function fetchOne($sql, $params = []) {
+    public function fetchOne($sql = null, $params = []) {
+        // If called from query builder (no SQL provided)
+        if ($sql === null && !empty($this->qb['select'])) {
+            $sql = $this->buildSelectQuery();
+            $params = $this->getQueryParams();
+            $this->resetQueryBuilder();
+        }
+
         $stmt = $this->execute($sql, $params);
         return $stmt->fetch();
     }
 
     /**
      * Fetch all rows
+     * Can be used with direct SQL or query builder
      */
-    public function fetchAll($sql, $params = []) {
+    public function fetchAll($sql = null, $params = []) {
+        // If called from query builder (no SQL provided)
+        if ($sql === null && !empty($this->qb['select'])) {
+            $sql = $this->buildSelectQuery();
+            $params = $this->getQueryParams();
+            $this->resetQueryBuilder();
+        }
+
         $stmt = $this->execute($sql, $params);
         return $stmt->fetchAll();
     }
