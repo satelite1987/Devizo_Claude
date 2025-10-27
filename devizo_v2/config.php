@@ -363,5 +363,21 @@ function log_message($message, $level = 'info') {
 }
 
 // ============================================
+// AUTO-CREATE REQUIRED DIRECTORIES
+// ============================================
+
+$requiredDirs = [
+    UPLOADS_PATH,
+    CACHE_PATH,
+    LOGS_PATH
+];
+
+foreach ($requiredDirs as $dir) {
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0755, true);
+    }
+}
+
+// ============================================
 // END OF CONFIGURATION
 // ============================================
