@@ -10,6 +10,12 @@
  * ⚠️ IMPORTANT: Change DEBUG_MODE to false in production!
  */
 
+// Prevent multiple loading
+if (defined('DEVIZO_CONFIG_LOADED')) {
+    return;
+}
+define('DEVIZO_CONFIG_LOADED', true);
+
 // Prevent direct access
 if (!defined('DEVIZO_APP')) {
     define('DEVIZO_APP', true);
