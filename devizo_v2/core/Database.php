@@ -140,8 +140,16 @@ class Database {
 
     /**
      * Fetch single column value
+     * Can be used with direct SQL or query builder
      */
-    public function fetchColumn($sql, $params = [], $column = 0) {
+    public function fetchColumn($sql = null, $params = [], $column = 0) {
+        // If called from query builder (no SQL provided)
+        if ($sql === null && !empty($this->qb['select'])) {
+            $sql = $this->buildSelectQuery();
+            $params = $this->getQueryParams();
+            $this->resetQueryBuilder();
+        }
+
         $stmt = $this->execute($sql, $params);
         return $stmt->fetchColumn($column);
     }
@@ -356,21 +364,6 @@ class Database {
         $this->limit(1);
         $result = $this->get();
         return !empty($result) ? $result[0] : null;
-    }
-
-    /**
-     * Execute query builder and fetch single column value
-     */
-    public function fetchColumn($column = 0) {
-        $sql = $this->buildSelectQuery();
-        $params = $this->getQueryParams();
-
-        $stmt = $this->execute($sql, $params);
-        $result = $stmt->fetchColumn($column);
-
-        $this->resetQueryBuilder();
-
-        return $result;
     }
 
     private function buildSelectQuery() {
