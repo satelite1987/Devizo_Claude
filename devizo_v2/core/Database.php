@@ -319,6 +319,13 @@ class Database {
     }
 
     public function join($table, $condition, $type = 'INNER') {
+        // Handle table alias (e.g., 'roluri r' -> `roluri` r)
+        if (preg_match('/^(\S+)\s+(.+)$/', $table, $matches)) {
+            $table = "`{$matches[1]}` {$matches[2]}";
+        } else {
+            $table = "`{$table}`";
+        }
+
         $this->qb['join'][] = "{$type} JOIN {$table} ON {$condition}";
         return $this;
     }
@@ -383,7 +390,15 @@ class Database {
     }
 
     private function buildSelectQuery() {
-        $sql = "SELECT {$this->qb['select']} FROM `{$this->qb['from']}`";
+        // Handle table alias (e.g., 'utilizatori u' -> `utilizatori` u)
+        $from = $this->qb['from'];
+        if (preg_match('/^(\S+)\s+(.+)$/', $from, $matches)) {
+            $from = "`{$matches[1]}` {$matches[2]}";
+        } else {
+            $from = "`{$from}`";
+        }
+
+        $sql = "SELECT {$this->qb['select']} FROM {$from}";
 
         if (!empty($this->qb['join'])) {
             $sql .= ' ' . implode(' ', $this->qb['join']);
