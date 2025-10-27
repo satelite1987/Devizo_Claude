@@ -13,9 +13,7 @@
     # Prevent access to hidden files and directories
     RewriteRule "(^|/)\." - [F]
 
-    # Allow direct access to specific files
-    RewriteCond %{REQUEST_URI} ^/(index|login|logout|setup)\.php$ [OR]
-    RewriteCond %{REQUEST_URI} ^/(css|js|images|uploads)/ [OR]
+    # Allow direct access to PHP files and static resources
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
